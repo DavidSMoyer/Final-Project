@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=UI
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ UI\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.params=
+comment2.target=void\ updateImage()
+comment2.text=\r\n\ UpdateImage\r\n\ \r\n\ Updates\ the\ image\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment3.params=
+comment3.target=void\ toggleBuild()
+comment3.text=\r\n\ ToggleBuild\r\n\ \r\n\ toggles\ the\ build\ menu\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment4.params=
+comment4.target=void\ closeBuildMenu()
+comment4.text=\r\n\ CloseBuildMenu\r\n\ \r\n\ Closes\ the\ build\ menu\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment5.params=
+comment5.target=void\ toggleBuy()
+comment5.text=\r\n\ ToggleBuy\r\n\ \r\n\ Toggles\ the\ buy\ menu\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment6.params=
+comment6.target=void\ closeBuyMenu()
+comment6.text=\r\n\ CloseBuyMenu\r\n\ \r\n\ Closes\ the\ buy\ menu\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment7.params=
+comment7.target=void\ toggleTrain()
+comment7.text=\r\n\ ToggleTrain\r\n\ \r\n\ Toggles\ the\ train\ menu\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment8.params=
+comment8.target=void\ closeTrainMenu()
+comment8.text=\r\n\ CloseTrainMenu\r\n\ \r\n\ Closes\ the\ train\ menu\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+numComments=9

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Terrain
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Terrain\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=t
+comment1.target=Terrain(java.lang.String)
+comment1.text=\r\n\ The\ constructor\ for\ the\ Terrain\ object\r\n\ \r\n\ @param\ t\ The\ type\ of\ terrain\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Terrain\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment3.params=
+comment3.target=void\ hideDetection()
+comment3.text=\r\n\ HideDetection\r\n\ \r\n\ Detects\ if\ it\ should\ hide\ the\ image\ or\ not\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment4.params=
+comment4.target=java.lang.String\ getType()
+comment4.text=\r\n\ GetType\r\n\ \r\n\ Gets\ the\ terrain\ type\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ string\r\n
+numComments=5

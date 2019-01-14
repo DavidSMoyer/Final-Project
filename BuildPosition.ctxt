@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=BuildPosition
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ BuildPosition\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=t\ p
+comment1.target=BuildPosition(java.lang.String,\ int)
+comment1.text=\r\n\ The\ constructor\ of\ the\ BuildPosition\ object\r\n\ \r\n\ @param\ t\ The\ type\ being\ built\r\n\ @param\ p\ The\ player\ that\ owns\ it\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ BuildPosition\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment3.params=
+comment3.target=java.lang.String\ getType()
+comment3.text=\r\n\ GetType\r\n\ \r\n\ Returns\ the\ type\ the\ object\ is\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ string\r\n
+comment4.params=
+comment4.target=void\ removeDetection()
+comment4.text=\r\n\ RemoveDetection\r\n\ \r\n\ Detects\ if\ it\ should\ be\ removed\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+comment5.params=
+comment5.target=void\ clickDetection()
+comment5.text=\r\n\ ClickDetection\r\n\ \r\n\ Detects\ if\ the\ object\ was\ clicked\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
+numComments=6

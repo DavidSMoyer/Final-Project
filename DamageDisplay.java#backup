@@ -1,0 +1,60 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+/**
+ * Write a description of class DamageDisplay here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class DamageDisplay extends Actor
+{
+    private int lifeTime = 50;
+    public DamageDisplay(String display)
+    {
+        GreenfootImage img = new GreenfootImage(50,50);
+        img.setFont(new Font("Helvetica",20));
+        img.setColor(Color.BLUE);
+        img.drawString(display,0,img.getHeight()/2);
+        
+        img
+        setImage(img);
+    }
+    public DamageDisplay(int amount)
+    {
+        GreenfootImage img = new GreenfootImage(50,50);
+        img.setFont(new Font("Helvetica",20));
+        char operation = ' ';
+        if(amount > 0)
+        {
+            operation = '+';
+            img.setColor(Color.GREEN);
+        }
+        if(amount < 0)
+        {
+            operation = '-';
+            amount*=-1;
+            img.setColor(Color.RED);
+        }
+        img.drawString("" + operation + amount,0,img.getHeight()/2);
+        setImage(img);
+    }
+    /**
+     * Act - do whatever the DamageDisplay wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    public void act() 
+    {
+        if(lifeTime > 0)
+        {
+            lifeTime--;
+            if(lifeTime % 5 == 0)
+            {
+                setLocation(getX(),getY()-1);
+            }
+        }
+        else
+        {
+            getWorld().removeObject(this);
+        }
+    }    
+}
