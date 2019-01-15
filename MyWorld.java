@@ -1,11 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List; // Imports List functionality
 import javax.swing.JOptionPane; // Imports message panes
-/**
- * Write a description of class MyWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+/** 
+ * Name: David Moyer
+ * Class: Software Development
+ * Teacher: Scott Hardman
+ * Date: 15/1/2019
  */
 public class MyWorld extends World
 {
