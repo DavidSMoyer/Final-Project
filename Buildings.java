@@ -252,6 +252,7 @@ public class Buildings extends Actor
         if(amount < 0)
         {
             healDelay = 2;
+            getWorld().addObject(new AttackAnimation(),getX(),getY());
         }
         if(health > maxHealth)
         {

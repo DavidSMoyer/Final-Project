@@ -599,6 +599,7 @@ public class Soldier extends Actor
         health+=amount;
         if(!attack.isEmpty())
         {
+            getWorld().addObject(new AttackAnimation(),getX(),getY());
             if(attack.get(0).getAttacker() != null)
             {
                 if(attack.get(0).getAttacker().getAbility2() == "Vampiric Fang" && attack.get(0).getAbility() != "drain")

@@ -543,6 +543,18 @@ public class Button extends Actor
                 {
                     img2 = new GreenfootImage("claw.png");
                 }
+                if(hero.getAbility1() == "Toxic Bite")
+                {
+                    img2 = new GreenfootImage("toxicbite.png");
+                }
+                if(hero.getAbility1() == "Coil")
+                {
+                    img2 = new GreenfootImage("coil.png");
+                }
+                if(hero.getAbility1() == "Cursed Gaze")
+                {
+                    img2 = new GreenfootImage("cursedgaze.png");
+                }
                 img2.scale(120,120);
                 img.drawImage(img2,0,0);
                 img.setColor(Color.WHITE);

@@ -32,7 +32,7 @@ public class MyWorld extends World
         super(700, 750, 1); 
         getBackground().setColor(Color.BLACK);
         getBackground().fill();
-        setPaintOrder(DamageDisplay.class,BuildPosition.class,AttackPosition.class,MovePosition.class,Hero.class,Soldier.class,Buildings.class,Terrain.class,Hexagon.class);
+        setPaintOrder(DamageDisplay.class,AttackAnimation.class,BuildPosition.class,AttackPosition.class,MovePosition.class,Hero.class,Soldier.class,Buildings.class,Terrain.class,Hexagon.class);
         initialize();
         Greenfoot.start();
     }

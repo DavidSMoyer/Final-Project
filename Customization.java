@@ -10,8 +10,8 @@ public class Customization extends Actor
 {
     private int player; // The player that owns the menu
     // The array of images for displaying
-    private GreenfootImage classImage[] = {new GreenfootImage("knight.png"), new GreenfootImage("mage.png"), new GreenfootImage("necromancer.png"), new GreenfootImage("thief.png"), new GreenfootImage("archer.png"), new GreenfootImage("dragon.png")};
-    private String classType[] = {"Knight","Mage","Necromancer","Thief","Archer","Dragon"}; // The array of class types
+    private GreenfootImage classImage[] = {new GreenfootImage("knight.png"), new GreenfootImage("mage.png"), new GreenfootImage("necromancer.png"), new GreenfootImage("thief.png"), new GreenfootImage("archer.png"), new GreenfootImage("dragon.png"), new GreenfootImage("gorgon.png")};
+    private String classType[] = {"Knight","Mage","Necromancer","Thief","Archer","Dragon","Gorgon"}; // The array of class types
     private int currentClass = Greenfoot.getRandomNumber(classType.length); // The current class being displayed
     private String ability1[] = {"Earthquake","Gladiator Shield","Stunning Blow"}; // The array of active abilities
     private int currentAbility1 = Greenfoot.getRandomNumber(3); // The active ability being displayed
@@ -30,7 +30,6 @@ public class Customization extends Actor
         }
         player = p;
         updateAbilities();
-        updateImage();
     }
     /**
      * Act - do whatever the Customization wants to do. This method is called whenever
@@ -82,7 +81,7 @@ public class Customization extends Actor
         }
         img.setColor(Color.WHITE);
         img.setFont(new Font("Helvetica",15));
-        img.drawString("Player " + player,img.getWidth()/2-30,20);
+        img.drawString(((MyWorld)getWorld()).getPlayerName(player),img.getWidth()/2-((MyWorld)getWorld()).getPlayerName(player).length()*10/2,20);
         img.drawString("Class:\n" + classType[currentClass],img.getWidth()/2-30,50);
         img.drawString("Ability 1:\n" + ability1[currentAbility1],img.getWidth()/2-30,120); 
         img.drawString("Ability 2:\n" + ability2[currentAbility2],img.getWidth()/2-30,190);
@@ -266,7 +265,7 @@ public class Customization extends Actor
             ability2[1] = "Return Fire";
             ability2[2] = "Mend";
         }
-        else
+        else if (classType[currentClass] == "Dragon")
         {
             ability1[0] = "Flight";
             ability1[1] = "Flame Torrent";
@@ -275,6 +274,16 @@ public class Customization extends Actor
             ability2[0] = "Oven";
             ability2[1] = "Regeneration";
             ability2[2] = "Beastly Might";
+        }
+        else
+        {
+            ability1[0] = "Toxic Bite";
+            ability1[1] = "Cursed Gaze";
+            ability1[2] = "Coil";
+            
+            ability2[0] = "Quick Tail";
+            ability2[1] = "WIP";
+            ability2[2] = "WIP";
         }
     }
     /**

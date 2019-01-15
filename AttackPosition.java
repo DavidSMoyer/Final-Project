@@ -179,16 +179,8 @@ public class AttackPosition extends Actor
                 {
                     if(ability == null)
                     {
-                        if(hero.getClassType() == "Knight" || hero.getClassType() == "Thief")
-                        {
-                            hero.breakInvis();
-                            enemyHero.changeHP(-damage);
-                            if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
-                            {
-                                hero.changeHP(-1);
-                            }
-                        }
-                        else if (hero.getClassType() == "Mage" || hero.getClassType() == "Necromancer")
+                        hero.breakInvis();
+                        if(hero.getClassType() != "Archer" && hero.getClassType() != "Dragon" && hero.getClassType() != "Gorgon")
                         {
                             enemyHero.changeHP(-damage);
                             if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
@@ -246,11 +238,37 @@ public class AttackPosition extends Actor
                                 hero.changeHP(-1);
                             }
                         }
+                        else if (hero.getClassType() == "Gorgon")
+                        {
+                            List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                            boolean close = false;
+                            for(int i = 0;i < heroes.size();i++)
+                            {
+                                if(heroes.get(i) == hero)
+                                {
+                                    close = true;
+                                }
+                            }
+                            if(close == true)
+                            {
+                                damage--;
+                                if(damage < 1)
+                                {
+                                    damage = 1;
+                                }
+                            }
+                            enemyHero.changeHP(-damage);
+                            if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
+                            {
+                                hero.changeHP(-1);
+                            }
+                        }
                         hero.setAttacked(true);
                         hero.unselect();
                     }
                     else
                     {
+                        hero.breakInvis();
                         if(ability == "stun")
                         {
                             enemyHero.changeHP(-1);
@@ -309,6 +327,7 @@ public class AttackPosition extends Actor
                                     if(nearbyHeroes.get(i) != enemyHero)
                                     {
                                         nearbyHeroes.get(i).changeHP(-2);
+                                        getWorld().addObject(new AttackAnimation(),nearbyHeroes.get(i).getX(),nearbyHeroes.get(i).getY());
                                     }
                                 }
                             }
@@ -318,6 +337,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < nearbySoldiers.size();i++)
                                 {
                                     nearbySoldiers.get(i).changeHP(-2);
+                                    getWorld().addObject(new AttackAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
                                 }
                             }
                             hero.setCooldown(5);
@@ -349,6 +369,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < heroes.size();i++)
                                 {
                                     heroes.get(i).setFire();
+                                    getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                                 }
                             }
                             List<Soldier> nearbySoldiers = getObjectsInRange(75,Soldier.class);
@@ -357,6 +378,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < nearbySoldiers.size();i++)
                                 {
                                         nearbySoldiers.get(i).setFire();
+                                        getWorld().addObject(new AttackAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
                                 }
                             }
                             hero.setCooldown(5);
@@ -375,23 +397,7 @@ public class AttackPosition extends Actor
                 }
                 else
                 {
-                    if(soldier.getType() == "knight")
-                    {
-                        enemyHero.changeHP(-damage);
-                        if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
-                        {
-                            soldier.changeHP(-1);
-                        }
-                    }
-                    else if(soldier.getType() == "skeleton")
-                    {
-                        enemyHero.changeHP(-damage);
-                        if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
-                        {
-                            soldier.changeHP(-1);
-                        }
-                    }
-                    else if(soldier.getType() == "mage")
+                    if(soldier.getType() != "archer")
                     {
                         enemyHero.changeHP(-damage);
                         if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
@@ -421,13 +427,10 @@ public class AttackPosition extends Actor
                                 damage = 1;
                             }
                         }
-                        else
-                        {
-                            enemyHero.changeHP(-damage);
-                            if(enemyHero.getAbility2() == "Thorned Armour")
+                        enemyHero.changeHP(-damage);
+                        if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
                         {
                             soldier.changeHP(-1);
-                        }
                         }
                     }
                     soldier.setAttacked(true);
@@ -439,12 +442,8 @@ public class AttackPosition extends Actor
             {
                 if(hero != null)
                 {
-                    if(hero.getClassType() == "Knight" || hero.getClassType() == "Thief")
-                    {
-                        hero.breakInvis();
-                        enemyBuild.changeHP(-damage);
-                    }
-                    else if (hero.getClassType() == "Mage" || hero.getClassType() == "Necromancer")
+                    hero.breakInvis();
+                    if(hero.getClassType() != "Archer" && hero.getClassType() != "Dragon" && hero.getClassType() != "Gorgon")
                     {
                         enemyBuild.changeHP(-damage);
                     }
@@ -493,26 +492,43 @@ public class AttackPosition extends Actor
                         else
                         {
                             damage--;
+                            if(damage < 1)
+                            {
+                                damage = 1;
+                            }
+                        }
+                    }
+                    else if (hero.getClassType() == "Gorgon")
+                        {
+                            List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                            boolean close = false;
+                            for(int i = 0;i < heroes.size();i++)
+                            {
+                                if(heroes.get(i) == hero)
+                                {
+                                    close = true;
+                                }
+                            }
+                            if(close == true)
+                            {
+                                damage--;
                                 if(damage < 1)
                                 {
                                     damage = 1;
                                 }
+                            }
+                            enemyHero.changeHP(-damage);
+                            if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
+                            {
+                                hero.changeHP(-1);
+                            }
                         }
-                    }
                     hero.setAttacked(true);
                     hero.unselect();
                 }
                 else
                 {
-                    if(soldier.getType() == "knight")
-                    {
-                        enemyBuild.changeHP(-damage);
-                    }
-                    else if(soldier.getType() == "skeleton")
-                    {
-                        enemyBuild.changeHP(-damage);
-                    }
-                    else if(soldier.getType() == "mage")
+                    if(soldier.getType() != "archer")
                     {
                         enemyBuild.changeHP(-damage);
                     }
@@ -550,12 +566,8 @@ public class AttackPosition extends Actor
                 {
                     if(ability == null)
                     {
-                        if(hero.getClassType() == "Knight" || hero.getClassType() == "Thief")
-                        {
-                            hero.breakInvis();
-                            enemySoldier.changeHP(-damage);
-                        }
-                        else if (hero.getClassType() == "Mage" || hero.getClassType() == "Necromancer")
+                        hero.breakInvis();
+                        if(hero.getClassType() != "Archer" && hero.getClassType() != "Dragon" && hero.getClassType() != "Gorgon")
                         {
                             enemySoldier.changeHP(-damage);
                         }
@@ -608,11 +620,37 @@ public class AttackPosition extends Actor
                             }
                             enemySoldier.changeHP(-damage);
                         }
+                        else if (hero.getClassType() == "Gorgon")
+                        {
+                            List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                            boolean close = false;
+                            for(int i = 0;i < heroes.size();i++)
+                            {
+                                if(heroes.get(i) == hero)
+                                {
+                                    close = true;
+                                }
+                            }
+                            if(close == true)
+                            {
+                                damage--;
+                                if(damage < 1)
+                                {
+                                    damage = 1;
+                                }
+                            }
+                            enemyHero.changeHP(-damage);
+                            if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
+                            {
+                                hero.changeHP(-1);
+                            }
+                        }
                         hero.setAttacked(true);
                         hero.unselect();
                     }
                     else
                     {
+                        hero.breakInvis();
                         if(ability == "stun")
                         {
                             enemySoldier.changeHP(-1);
@@ -676,6 +714,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < nearbyHeroes.size();i++)
                                 {
                                     nearbyHeroes.get(i).changeHP(-2);
+                                    getWorld().addObject(new AttackAnimation(),nearbyHeroes.get(i).getX(),nearbyHeroes.get(i).getY());
                                 }
                             }
                             List<Soldier> nearbySoldiers = getObjectsInRange(75,Soldier.class);
@@ -686,6 +725,7 @@ public class AttackPosition extends Actor
                                     if(nearbySoldiers.get(i) != enemySoldier)
                                     {
                                         nearbySoldiers.get(i).changeHP(-2);
+                                        getWorld().addObject(new AttackAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
                                     }
                                 }
                             }
@@ -718,6 +758,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < heroes.size();i++)
                                 {
                                     heroes.get(i).setFire();
+                                    getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                                 }
                             }
                             List<Soldier> soldiers = getObjectsInRange(75,Soldier.class);
@@ -726,6 +767,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < soldiers.size();i++)
                                 {
                                     soldiers.get(i).setFire();
+                                    getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                                 }
                             }
                             hero.setCooldown(5);
@@ -744,15 +786,7 @@ public class AttackPosition extends Actor
                 }
                 else if (soldier != null)
                 {
-                    if(soldier.getType() == "knight")
-                    {
-                        enemySoldier.changeHP(-damage);
-                    }
-                    else if(soldier.getType() == "skeleton")
-                    {
-                        enemyHero.changeHP(-damage);
-                    }
-                    else if(soldier.getType() == "mage")
+                    if(soldier.getType() != "archer")
                     {
                         enemySoldier.changeHP(-damage);
                     }

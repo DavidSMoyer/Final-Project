@@ -73,6 +73,11 @@ public class Hero extends Actor
             originalDamage = 2;
             img = new GreenfootImage("archer.png");
         }
+        else if (classType == "Gorgon")
+        {
+            originalDamage = 2;
+            img = new GreenfootImage("gorgon.png");
+        }
         img.scale(50,50);
         updateImage();
     }
@@ -220,7 +225,7 @@ public class Hero extends Actor
      */
     private void addMove()
     {
-        if(slowTurns <= 0 && ability2 != "Haste")
+        if(slowTurns <= 0 && ability2 != "Haste" && ability2 != "Quick Tail")
         {
             List<Hexagon> hex = getObjectsInRange(150,Hexagon.class);
             for(int i = 0;i < hex.size();i++)
@@ -242,7 +247,7 @@ public class Hero extends Actor
                 }
             }
         }
-        else if (ability2 == "Haste")
+        else if (ability2 == "Haste" || ability2 == "Quick Tail")
         {
             List<Hexagon> hex = getObjectsInRange(197,Hexagon.class);
             for(int i = 0;i < hex.size();i++)
@@ -349,7 +354,7 @@ public class Hero extends Actor
                 }
             }
         }
-        else if (classType == "Archer" || classType == "Dragon")
+        else if (classType == "Archer" || classType == "Dragon" || classType == "Gorgon")
         {
             if(!heroes3.isEmpty())
             {
@@ -492,6 +497,7 @@ public class Hero extends Actor
         }
         else
         {
+            getWorld().addObject(new AttackAnimation(),getX(),getY());
             if(invulTurns <= 0 & invisTurns <= 0 & amount < 0)
             {
                 if(ability2 == "Evade")
@@ -720,6 +726,7 @@ public class Hero extends Actor
                         for(int i = 0;i < heroes.size();i++)
                         {
                             heroes.get(i).changeHP(-3);
+                            getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                         }
                     }
                     if(!soldiers.isEmpty())
@@ -729,6 +736,7 @@ public class Hero extends Actor
                             if(soldiers.get(i).getPlayer() != player)
                             {
                                 soldiers.get(i).changeHP(-3);
+                                getWorld().addObject(new AttackAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
                             }
                         }
                     }
@@ -779,6 +787,7 @@ public class Hero extends Actor
                         for(int i = 0;i < heroes.size();i++)
                         {
                             heroes.get(i).changeHP(-2);
+                            getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                         }
                     }
                     if(!soldiers.isEmpty())
@@ -788,6 +797,7 @@ public class Hero extends Actor
                             if(soldiers.get(i).getPlayer() != player)
                             {
                                 soldiers.get(i).changeHP(-2);
+                                getWorld().addObject(new AttackAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
                             }
                         }
                     }
