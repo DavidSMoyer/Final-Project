@@ -5,7 +5,7 @@ import javax.swing.JOptionPane; // Imports message panes
  * Name: David Moyer
  * Class: Software Development
  * Teacher: Scott Hardman
- * Date: 15/1/2019
+ * Date: 16/1/2019
  */
 public class MyWorld extends World
 {
@@ -32,7 +32,7 @@ public class MyWorld extends World
         super(700, 750, 1); 
         getBackground().setColor(Color.BLACK);
         getBackground().fill();
-        setPaintOrder(DamageDisplay.class,AttackAnimation.class,BuildPosition.class,AttackPosition.class,MovePosition.class,Hero.class,Soldier.class,Buildings.class,Terrain.class,Hexagon.class);
+        setPaintOrder(ReviveDisplay.class,DeathDisplay.class,DamageDisplay.class,EffectAnimation.class,AttackAnimation.class,HealAnimation.class,BuildPosition.class,AttackPosition.class,MovePosition.class,Hero.class,Soldier.class,Buildings.class,Terrain.class,Hexagon.class);
         initialize();
         Greenfoot.start();
     }

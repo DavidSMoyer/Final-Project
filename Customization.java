@@ -10,8 +10,8 @@ public class Customization extends Actor
 {
     private int player; // The player that owns the menu
     // The array of images for displaying
-    private GreenfootImage classImage[] = {new GreenfootImage("knight.png"), new GreenfootImage("mage.png"), new GreenfootImage("necromancer.png"), new GreenfootImage("thief.png"), new GreenfootImage("archer.png"), new GreenfootImage("dragon.png"), new GreenfootImage("gorgon.png")};
-    private String classType[] = {"Knight","Mage","Necromancer","Thief","Archer","Dragon","Gorgon"}; // The array of class types
+    private static GreenfootImage classImage[] = {new GreenfootImage("knight.png"), new GreenfootImage("mage.png"), new GreenfootImage("necromancer.png"), new GreenfootImage("thief.png"), new GreenfootImage("archer.png"), new GreenfootImage("dragon.png"), new GreenfootImage("gorgon.png"), new GreenfootImage("summoner.png"), new GreenfootImage("gambler.png"), new GreenfootImage("warlord.png")};
+    private String classType[] = {"Knight","Mage","Necromancer","Thief","Archer","Dragon","Gorgon", "Summoner", "Gambler","Warlord"}; // The array of class types
     private int currentClass = Greenfoot.getRandomNumber(classType.length); // The current class being displayed
     private String ability1[] = {"Earthquake","Gladiator Shield","Stunning Blow"}; // The array of active abilities
     private int currentAbility1 = Greenfoot.getRandomNumber(3); // The active ability being displayed
@@ -82,9 +82,9 @@ public class Customization extends Actor
         img.setColor(Color.WHITE);
         img.setFont(new Font("Helvetica",15));
         img.drawString(((MyWorld)getWorld()).getPlayerName(player),img.getWidth()/2-((MyWorld)getWorld()).getPlayerName(player).length()*10/2,20);
-        img.drawString("Class:\n" + classType[currentClass],img.getWidth()/2-30,50);
-        img.drawString("Ability 1:\n" + ability1[currentAbility1],img.getWidth()/2-30,120); 
-        img.drawString("Ability 2:\n" + ability2[currentAbility2],img.getWidth()/2-30,190);
+        img.drawString("Class:\n" + classType[currentClass],img.getWidth()/2-40,50);
+        img.drawString("Ability 1:\n" + ability1[currentAbility1],img.getWidth()/2-40,120); 
+        img.drawString("Ability 2:\n" + ability2[currentAbility2],img.getWidth()/2-40,190);
         img.drawImage(classImage[currentClass],img.getWidth()/2-classImage[currentClass].getWidth()/2,img.getHeight()-classImage[currentClass].getHeight());
         
         setImage(img);
@@ -275,15 +275,45 @@ public class Customization extends Actor
             ability2[1] = "Regeneration";
             ability2[2] = "Beastly Might";
         }
-        else
+        else if (classType[currentClass] == "Gorgon")
         {
             ability1[0] = "Toxic Bite";
             ability1[1] = "Cursed Gaze";
             ability1[2] = "Coil";
             
             ability2[0] = "Quick Tail";
-            ability2[1] = "WIP";
-            ability2[2] = "WIP";
+            ability2[1] = "Drugged Arrows";
+            ability2[2] = "Sharpened Claws";
+        }
+        else if (classType[currentClass] == "Summoner")
+        {
+            ability1[0] = "Summon Golem";
+            ability1[1] = "Summon Phoenix";
+            ability1[2] = "Summon Serpent";
+            
+            ability2[0] = "Rapid Summoning";
+            ability2[1] = "War Constructs";
+            ability2[2] = "Tough Runes";
+        }
+        else if (classType[currentClass] == "Gambler")
+        {
+            ability1[0] = "Dice Roll";
+            ability1[1] = "Blackjack";
+            ability1[2] = "Russian Roulette";
+            
+            ability2[0] = "Healing Roulette";
+            ability2[1] = "Effect Slots";
+            ability2[2] = "Double or Nothing";
+        }
+        else if (classType[currentClass] == "Warlord")
+        {
+            ability1[0] = "Shattering Blow";
+            ability1[1] = "Pinning Strike";
+            ability1[2] = "Leap";
+            
+            ability2[0] = "Beserk";
+            ability2[1] = "Inspire";
+            ability2[2] = "Grace of God";
         }
     }
     /**
@@ -292,7 +322,7 @@ public class Customization extends Actor
      * Gets the current class type
      * 
      * @param None There are no parameters
-     * @return Returns string
+     * @return Returns the seleted class type
      */
     public String getClassType()
     {
@@ -304,7 +334,7 @@ public class Customization extends Actor
      * Gets the set ability
      * 
      * @param id The ability to get
-     * @return Returns string
+     * @return Returns the ability selected by the player and the get parameter
      */
     public String getAbility(int id)
     {

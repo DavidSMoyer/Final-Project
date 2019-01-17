@@ -81,6 +81,7 @@ public class BuildPosition extends Actor
                     world.change("stone",player,-5);
                     world.addObject(new Buildings("lumberMill",player),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
+                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "M")
@@ -90,6 +91,7 @@ public class BuildPosition extends Actor
                     world.change("wood",player,-5);
                     world.addObject(new Buildings("rockMine",player),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
+                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "GM")
@@ -101,6 +103,7 @@ public class BuildPosition extends Actor
                     world.change("stone",player,-5);
                     world.addObject(new Buildings("goldMine",player),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
+                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "A")
@@ -111,6 +114,7 @@ public class BuildPosition extends Actor
                     world.change("stone",player,-8);
                     world.addObject(new Buildings("armoury",player),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
+                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "B")
@@ -121,6 +125,7 @@ public class BuildPosition extends Actor
                     world.change("wood",player,-8);
                     world.addObject(new Buildings("barracks",player),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
+                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "T")
@@ -131,6 +136,7 @@ public class BuildPosition extends Actor
                     world.change("iron",player,-3);
                     world.addObject(new Buildings("tower",player),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
+                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "archer")
@@ -167,7 +173,46 @@ public class BuildPosition extends Actor
                 {
                     if(world.getObjects(Hero.class).get(i).getPlayer() == player)
                     {
-                        world.getObjects(Hero.class).get(i).setCooldown(5);
+                        world.getObjects(Hero.class).get(i).setCooldown(3);
+                        world.getObjects(Hero.class).get(i).setAttacked(true);
+                        world.getObjects(Hero.class).get(i).unselect();
+                    }
+                }
+            }
+            if(type == "golem")
+            {
+                world.addObject(new Soldier("golem",player),getX(),getY());
+                for(int i = 0;i < world.getObjects(Hero.class).size();i++)
+                {
+                    if(world.getObjects(Hero.class).get(i).getPlayer() == player)
+                    {
+                        world.getObjects(Hero.class).get(i).setCooldown(10);
+                        world.getObjects(Hero.class).get(i).setAttacked(true);
+                        world.getObjects(Hero.class).get(i).unselect();
+                    }
+                }
+            }
+            if(type == "serpent")
+            {
+                world.addObject(new Soldier("serpent",player),getX(),getY());
+                for(int i = 0;i < world.getObjects(Hero.class).size();i++)
+                {
+                    if(world.getObjects(Hero.class).get(i).getPlayer() == player)
+                    {
+                        world.getObjects(Hero.class).get(i).setCooldown(4);
+                        world.getObjects(Hero.class).get(i).setAttacked(true);
+                        world.getObjects(Hero.class).get(i).unselect();
+                    }
+                }
+            }
+            if(type == "phoenix")
+            {
+                world.addObject(new Soldier("phoenix",player),getX(),getY());
+                for(int i = 0;i < world.getObjects(Hero.class).size();i++)
+                {
+                    if(world.getObjects(Hero.class).get(i).getPlayer() == player)
+                    {
+                        world.getObjects(Hero.class).get(i).setCooldown(6);
                         world.getObjects(Hero.class).get(i).setAttacked(true);
                         world.getObjects(Hero.class).get(i).unselect();
                     }

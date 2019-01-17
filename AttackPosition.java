@@ -257,6 +257,14 @@ public class AttackPosition extends Actor
                                     damage = 1;
                                 }
                             }
+                            if(hero.getAbility2() == "Sharpened Claws" && close == true)
+                            {
+                                damage+=2;
+                            }
+                            if(hero.getAbility2() == "Drugged Arrows" && close == false)
+                            {
+                                enemyHero.slowAttack();
+                            }
                             enemyHero.changeHP(-damage);
                             if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
                             {
@@ -393,11 +401,51 @@ public class AttackPosition extends Actor
                             hero.setAttacked(true);
                             hero.unselect();
                         }
+                        if(ability == "gaze")
+                        {
+                            enemyHero.stunAttack();
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "coil")
+                        {
+                            enemyHero.changeHP(-1);
+                            enemyHero.slowAttack();
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "dice")
+                        {
+                            int damage = Greenfoot.getRandomNumber(6)+1;
+                            enemyHero.changeHP(-damage);
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "blackjack")
+                        {
+                            int damage = -5;
+                            int heal = Greenfoot.getRandomNumber(4)+1;
+                            enemyHero.changeHP(damage+heal);
+                            while(enemyHero.getHealth() + heal > 20)
+                            {
+                                heal--;
+                            }
+                            if(heal > 0)
+                            {
+                                hero.changeHP(heal);
+                            }
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
                     }
                 }
                 else
                 {
-                    if(soldier.getType() != "archer")
+                    if(soldier.getType() != "archer" && soldier.getType() != "phoenix" && soldier.getType() != "serpent")
                     {
                         enemyHero.changeHP(-damage);
                         if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
@@ -428,6 +476,24 @@ public class AttackPosition extends Actor
                             }
                         }
                         enemyHero.changeHP(-damage);
+                        if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
+                        {
+                            soldier.changeHP(-1);
+                        }
+                    }
+                    else if (soldier.getType() == "serpent")
+                    {
+                        enemyHero.changeHP(-damage);
+                        enemyHero.slowAttack();
+                        if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
+                        {
+                            soldier.changeHP(-1);
+                        }
+                    }
+                    else if (soldier.getType() == "phoenix")
+                    {
+                        enemyHero.changeHP(-damage);
+                        enemyHero.setFire();
                         if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
                         {
                             soldier.changeHP(-1);
@@ -517,11 +583,7 @@ public class AttackPosition extends Actor
                                     damage = 1;
                                 }
                             }
-                            enemyHero.changeHP(-damage);
-                            if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
-                            {
-                                hero.changeHP(-1);
-                            }
+                            enemyBuild.changeHP(-damage);
                         }
                     hero.setAttacked(true);
                     hero.unselect();
@@ -639,11 +701,15 @@ public class AttackPosition extends Actor
                                     damage = 1;
                                 }
                             }
-                            enemyHero.changeHP(-damage);
-                            if(enemyHero.getAbility2() == "Thorned Armour" || enemyHero.getAbility2() == "Return Fire")
+                            if(hero.getAbility2() == "Sharpened Claws" && close == true)
                             {
-                                hero.changeHP(-1);
+                                damage+=2;
                             }
+                            if(hero.getAbility2() == "Drugged Arrows" && close == false)
+                            {
+                                enemySoldier.slowAttack();
+                            }
+                            enemySoldier.changeHP(-damage);
                         }
                         hero.setAttacked(true);
                         hero.unselect();
@@ -782,11 +848,51 @@ public class AttackPosition extends Actor
                             hero.setAttacked(true);
                             hero.unselect();
                         }
+                        if(ability == "gaze")
+                        {
+                            enemySoldier.stunAttack();
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "coil")
+                        {
+                            enemySoldier.changeHP(-1);
+                            enemySoldier.slowAttack();
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "dice")
+                        {
+                            int damage = Greenfoot.getRandomNumber(6)+1;
+                            enemySoldier.changeHP(-damage);
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "blackjack")
+                        {
+                            int damage = -5;
+                            int heal = Greenfoot.getRandomNumber(4)+1;
+                            enemySoldier.changeHP(damage+heal);
+                            while(enemySoldier.getHealth() + heal > enemySoldier.getMaxHealth())
+                            {
+                                heal--;
+                            }
+                            if(heal > 0)
+                            {
+                                hero.changeHP(heal);
+                            }
+                            hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
                     }
                 }
                 else if (soldier != null)
                 {
-                    if(soldier.getType() != "archer")
+                    if(soldier.getType() != "archer" && soldier.getType() != "serpent" && soldier.getType() != "phoenix")
                     {
                         enemySoldier.changeHP(-damage);
                     }
@@ -813,6 +919,16 @@ public class AttackPosition extends Actor
                             }
                         }
                         enemySoldier.changeHP(-damage);
+                    }
+                    else if (soldier.getType() == "serpent")
+                    {
+                        enemySoldier.changeHP(-damage);
+                        enemySoldier.slowAttack();
+                    }
+                    else if (soldier.getType() == "phoenix")
+                    {
+                        enemySoldier.changeHP(-damage);
+                        enemySoldier.setFire();
                     }
                     soldier.setAttacked(true);
                     soldier.unselect();

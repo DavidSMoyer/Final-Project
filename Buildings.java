@@ -104,9 +104,9 @@ public class Buildings extends Actor
                 List<Buildings> builds = getWorld().getObjects(Buildings.class);
                 for(int i = 0;i < builds.size();i++)
                 {
-                    if(builds.get(i).getPlayer() == player)
+                    if(builds.get(i).getPlayer() == player && builds.get(i) != this)
                     {
-                        builds.get(i).changeHP(-9999);
+                        getWorld().removeObject(builds.get(i));
                     }
                 }
                 List<Soldier> soldiers = getWorld().getObjects(Soldier.class);
@@ -118,6 +118,7 @@ public class Buildings extends Actor
                     }
                 }
             }
+            getWorld().addObject(new DeathDisplay(),getX(),getY());
             getWorld().removeObject(this);
         }
     }
@@ -249,11 +250,6 @@ public class Buildings extends Actor
     public void changeHP(int amount)
     {
         health+=amount;
-        if(amount < 0)
-        {
-            healDelay = 2;
-            getWorld().addObject(new AttackAnimation(),getX(),getY());
-        }
         if(health > maxHealth)
         {
             health = maxHealth;
@@ -261,6 +257,15 @@ public class Buildings extends Actor
         else
         {
             getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
+            if(amount < 0)
+            {
+                healDelay = 2;
+                getWorld().addObject(new AttackAnimation(),getX(),getY());
+            }
+            else
+            {
+                getWorld().addObject(new HealAnimation(),getX(),getY());
+            }
         }
     }
     /**

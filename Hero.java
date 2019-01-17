@@ -78,6 +78,20 @@ public class Hero extends Actor
             originalDamage = 2;
             img = new GreenfootImage("gorgon.png");
         }
+        else if (classType == "Summoner")
+        {
+            originalDamage = 2;
+            img = new GreenfootImage("summoner.png");
+        }
+        else if (classType == "Gambler")
+        {
+            img = new GreenfootImage("gambler.png");
+        }
+        else if (classType == "Warlord")
+        {
+            originalDamage = 3;
+            img = new GreenfootImage("warlord.png");
+        }
         img.scale(50,50);
         updateImage();
     }
@@ -270,10 +284,29 @@ public class Hero extends Actor
      */
     private void addAttack()
     {
-        damage = originalDamage;
+        if(classType != "Gambler")
+        {
+            damage = originalDamage;
+        }
+        else
+        {
+            damage = Greenfoot.getRandomNumber(3)+1;
+        }
         weak();
         strong();
         int changedDamage = damage;
+        if(ability2 == "Double or Nothing")
+        {
+            if(Greenfoot.getRandomNumber(5) == 0)
+            {
+                changedDamage+=2;
+                changedDamage*=2;
+            }
+            else
+            {
+                changedDamage = 1;
+            }
+        }
 
         List<Hero> heroes1 = getObjectsInRange(75,Hero.class);
         List<Hero> heroes2 = getObjectsInRange(150,Hero.class);
@@ -284,7 +317,7 @@ public class Hero extends Actor
         List<Soldier> soldiers1 = getObjectsInRange(75,Soldier.class);
         List<Soldier> soldiers2 = getObjectsInRange(150,Soldier.class);
         List<Soldier> soldiers3 = getObjectsInRange(197,Soldier.class);
-        if(classType == "Knight" || classType == "Thief")
+        if(classType == "Knight" || classType == "Thief" || classType == "Warlord")
         {
             if(!heroes1.isEmpty())
             {
@@ -319,7 +352,7 @@ public class Hero extends Actor
                 }
             }
         }
-        else if (classType == "Mage" || classType == "Necromancer")
+        else if (classType == "Mage" || classType == "Necromancer" || classType == "Summoner" || classType == "Gambler")
         {
             if(!heroes2.isEmpty())
             {
@@ -471,7 +504,20 @@ public class Hero extends Actor
     {
         return player;
     }
-
+    
+    /**
+     * GetHealth
+     * 
+     * Gets the current health of the hero
+     * 
+     * @Param None There are no parameters
+     * @return Returns an int
+     */
+    public int getHealth()
+    {
+        return health;
+    }
+    
     /**
      * ChangeHP
      * 
@@ -487,16 +533,24 @@ public class Hero extends Actor
         {
             health+=amount;
             if(health > 20)
-            {
-                health = 20;
-            }
-            else
-            {
-                getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
-            }
+                {
+                    health = 20;
+                }
+                else
+                {
+                    getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
+                    if(amount > 0)
+                    {
+                        getWorld().addObject(new HealAnimation(),getX(),getY());
+                    }
+                }
         }
         else
         {
+            if(ability2 == "Beserk" && amount < -1)
+            {
+                amount++;
+            }
             getWorld().addObject(new AttackAnimation(),getX(),getY());
             if(invulTurns <= 0 & invisTurns <= 0 & amount < 0)
             {
@@ -564,6 +618,7 @@ public class Hero extends Actor
             else if (amount > 0)
             {
                 health+=amount;
+                getWorld().addObject(new HealAnimation(),getX(),getY());
                 if(attack.get(0).getAttacker() != null)
                 {
                     if(attack.get(0).getAttacker().getAbility2() == "Vampiric Fang" && attack.get(0).getAbility() != "drain")
@@ -571,7 +626,15 @@ public class Hero extends Actor
                         attack.get(0).getAttacker().changeHP(1);
                     }
                 }
-                getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
+                if(health > 20)
+                {
+                    health = 20;
+                }
+                else
+                {
+                    getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
+                    getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
+                }
             }
         }
     }
@@ -588,24 +651,35 @@ public class Hero extends Actor
     {
         if (health <= 0)
         {
-            List<Buildings> builds = getWorld().getObjects(Buildings.class);
-            for(int i = 0;i < builds.size();i++)
+            if(ability2 != "Grace of God")
             {
-                if(builds.get(i).getPlayer() == player)
+                List<Buildings> builds = getWorld().getObjects(Buildings.class);
+                for(int i = 0;i < builds.size();i++)
                 {
-                    getWorld().removeObject(builds.get(i));
+                    if(builds.get(i).getPlayer() == player)
+                    {
+                        getWorld().removeObject(builds.get(i));
+                    }
                 }
+                List<Soldier> soldiers = getWorld().getObjects(Soldier.class);
+                for(int i = 0;i < soldiers.size();i++)
+                {
+                    if(soldiers.get(i).getPlayer() == player)
+                    {
+                        getWorld().removeObject(soldiers.get(i));
+                    }
+                }
+                ((MyWorld)getWorld()).lose(player);
+                getWorld().addObject(new DeathDisplay(),getX(),getY());
+                getWorld().removeObject(this);
             }
-            List<Soldier> soldiers = getWorld().getObjects(Soldier.class);
-            for(int i = 0;i < soldiers.size();i++)
+            else
             {
-                if(soldiers.get(i).getPlayer() == player)
-                {
-                    getWorld().removeObject(soldiers.get(i));
-                }
+                health = 10;
+                Greenfoot.playSound("heal.wav");
+                ability2 = "";
+                getWorld().addObject(new ReviveDisplay(),getX(),getY());
             }
-            ((MyWorld)getWorld()).lose(player);
-            getWorld().removeObject(this);
         }
     }
 
@@ -708,7 +782,16 @@ public class Hero extends Actor
                 List<Hexagon> hex = getWorld().getObjects(Hexagon.class);
                 for(int i = 0;i < hex.size();i++)
                 {
-                    getWorld().addObject(new MovePosition(this,true),hex.get(i).getX(),hex.get(i).getY());
+                    getWorld().addObject(new MovePosition(this,"Flight"),hex.get(i).getX(),hex.get(i).getY());
+                }
+                selected = true;
+            }
+            if(ability1 == "Leap")
+            {
+                List<Hexagon> hex = getObjectsInRange(197,Hexagon.class);
+                for(int i = 0;i < hex.size();i++)
+                {
+                    getWorld().addObject(new MovePosition(this,"Leap"),hex.get(i).getX(),hex.get(i).getY());
                 }
                 selected = true;
             }
@@ -1109,6 +1192,204 @@ public class Hero extends Actor
                     selected = true;
                 }
             }
+            if(ability1 == "Cursed Gaze")
+            {
+                List<Hero> heroes = getObjectsInRange(150,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(150,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"gaze"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"gaze"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Coil")
+            {
+                List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(75,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"coil"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"coil"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Toxic Bite")
+            {
+                List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(75,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"poisonstab"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"poisonstab"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Summon Golem")
+            {
+                List<Hexagon> hex = getObjectsInRange(75,Hexagon.class);
+                if(!hex.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    for(int i = 0;i < hex.size();i++)
+                    {
+                        getWorld().addObject(new BuildPosition("golem",player),hex.get(i).getX(),hex.get(i).getY());
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Summon Phoenix")
+            {
+                List<Hexagon> hex = getObjectsInRange(75,Hexagon.class);
+                if(!hex.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    for(int i = 0;i < hex.size();i++)
+                    {
+                        getWorld().addObject(new BuildPosition("phoenix",player),hex.get(i).getX(),hex.get(i).getY());
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Summon Serpent")
+            {
+                List<Hexagon> hex = getObjectsInRange(75,Hexagon.class);
+                if(!hex.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    for(int i = 0;i < hex.size();i++)
+                    {
+                        getWorld().addObject(new BuildPosition("serpent",player),hex.get(i).getX(),hex.get(i).getY());
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Dice Roll")
+            {
+                List<Hero> heroes = getObjectsInRange(150,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(150,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"dice"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"dice"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Blackjack")
+            {
+                List<Hero> heroes = getObjectsInRange(150,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(150,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"blackjack"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"blackjack"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Russian Roulette")
+            {
+                if(health < 20)
+                {
+                    if(Greenfoot.getRandomNumber(6) == 0)
+                    {
+                        changeHP(-5);
+                        getWorld().addObject(new AttackAnimation(),getX(),getY());
+                    }
+                    else
+                    {
+                        int heal = 5;
+                        while(health + heal > 20)
+                        {
+                            heal--;
+                        }
+                        if(heal > 0)
+                        {
+                            changeHP(heal);
+                        }
+                    }
+                    abilityCooldown = 3;
+                }
+            }
         }
     }
 
@@ -1122,13 +1403,21 @@ public class Hero extends Actor
      */
     private void lowerCooldown()
     {
-        if(abilityCooldown > 0)
+        if(stunTurns <= 0)
         {
-            abilityCooldown--;
-        }
-        if(passiveCooldown > 0)
-        {
-            passiveCooldown--;
+            if(abilityCooldown > 0)
+            {
+                abilityCooldown--;
+                if(ability2 == "Rapid Summoning" && abilityCooldown > 0 & passiveCooldown <= 0)
+                {
+                    abilityCooldown--;
+                    passiveCooldown = 2;
+                }
+            }
+            if(passiveCooldown > 0)
+            {
+                passiveCooldown--;
+            }
         }
     }
 
@@ -1211,6 +1500,7 @@ public class Hero extends Actor
             health--;
             getWorld().addObject(new DamageDisplay(-1),getX(),getY()-30);
             fireTurns--;
+            getWorld().addObject(new EffectAnimation(),getX(),getY());
         }
     }
 
@@ -1274,6 +1564,10 @@ public class Hero extends Actor
             health-=2;
             getWorld().addObject(new DamageDisplay(-2),getX(),getY()-30);
             poisonTurns--;
+            if(fireTurns <= 0)
+            {
+                getWorld().addObject(new EffectAnimation(),getX(),getY());
+            }
         }
     }
 
@@ -1457,6 +1751,80 @@ public class Hero extends Actor
         {
             changeHP(1);
         }
+        if(ability2 == "Healing Roulette")
+        {
+            if(Greenfoot.getRandomNumber(2) == 0)
+            {
+                if(ability2 == "Healing Roulette")
+                {
+                    int heal = Greenfoot.getRandomNumber(3)+1;
+                    while(health + heal > 20)
+                    {
+                        heal--;
+                    }
+                    if(heal > 0)
+                    {
+                        changeHP(heal);
+                    }
+                }
+            }
+        }
+        if(ability2 == "Effect Slots")
+        {
+            List<Hero> heroes = getObjectsInRange(75,Hero.class);
+            List<Soldier> soldiers = getObjectsInRange(75,Soldier.class);
+            if(!heroes.isEmpty())
+            {
+                for(int i = 0;i < heroes.size();i++)
+                {
+                    switch(Greenfoot.getRandomNumber(4))
+                    {
+                        case 0:
+                        heroes.get(i).setFire();
+                        break;
+                        
+                        case 1:
+                        heroes.get(i).poisonAttack();
+                        break;
+                        
+                        case 2:
+                        heroes.get(i).stunAttack();
+                        break;
+                        
+                        case 3:
+                        heroes.get(i).slowAttack();
+                        break;
+                    }
+                }
+            }
+            if(!soldiers.isEmpty())
+            {
+                for(int i = 0;i < soldiers.size();i++)
+                {
+                    if(soldiers.get(i).getPlayer() != player)
+                    {
+                        switch(Greenfoot.getRandomNumber(4))
+                        {
+                            case 0:
+                            soldiers.get(i).setFire();
+                            break;
+                            
+                            case 1:
+                            soldiers.get(i).poisonAttack();
+                            break;
+                            
+                            case 2:
+                            soldiers.get(i).stunAttack();
+                            break;
+                            
+                            case 3:
+                            soldiers.get(i).slowAttack();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1578,6 +1946,10 @@ public class Hero extends Actor
             strong = true;
         }
         if(ability2 == "Beastly Might")
+        {
+            strong = true;
+        }
+        if(ability2 == "Beserk")
         {
             strong = true;
         }

@@ -18,6 +18,7 @@ public class Soldier extends Actor
     private boolean selected = false; // If the soldier is selected or not
     private int originalDamage; // The default damage of the soldier
     private int damage; // The updated damage value after strengths & weaknesses
+    private boolean initialized = false; // Has the soldier been initialized
 
     private int fireTurns = 0; // The amount of turns with the fire status effect
     private int slowTurns = 0; // The amount of turns with the slow status effect
@@ -61,6 +62,27 @@ public class Soldier extends Actor
             maxHealth = 3;
             originalDamage = 2;
         }
+        else if (type == "phoenix")
+        {
+            img = new GreenfootImage("phoenix.png");
+            health = 5;
+            maxHealth = 5;
+            originalDamage = 2;
+        }
+        else if (type == "golem")
+        {
+            img = new GreenfootImage("golem.png");
+            health = 10;
+            maxHealth = 10;
+            originalDamage = 2;
+        }
+        else if (type == "serpent")
+        {
+            img = new GreenfootImage("serpent.png");
+            health = 5;
+            maxHealth = 5;
+            originalDamage = 2;
+        }
         img.scale(50,50);
     }
 
@@ -83,6 +105,27 @@ public class Soldier extends Actor
      */
     public void act() 
     {
+        if(initialized == false)
+        {
+            getWorld().addObject(new HealAnimation(),getX(),getY());
+            initialized = true;
+            if(type == "phoenix" || type == "golem" || type == "serpent")
+            {
+                List<Hero> heroes = getWorld().getObjects(Hero.class);
+                for(int i = 0;i < heroes.size();i++)
+                {
+                    if(heroes.get(i).getPlayer() == player && heroes.get(i).getAbility2() == "War Constructs")
+                    {
+                        originalDamage++;
+                    }
+                    if(heroes.get(i).getPlayer() == player && heroes.get(i).getAbility2() == "Tough Runes")
+                    {
+                        health+=2;
+                        maxHealth+=2;
+                    }
+                }
+            }
+        }
         clickDetection();
         updateImage();
         deathDetection();
@@ -148,7 +191,7 @@ public class Soldier extends Actor
         List<Soldier> soldiers1 = getObjectsInRange(75,Soldier.class);
         List<Soldier> soldiers2 = getObjectsInRange(150,Soldier.class);
         List<Soldier> soldiers3 = getObjectsInRange(197,Soldier.class);
-        if(type == "knight" || type == "skeleton")
+        if(type == "knight" || type == "skeleton" || type == "serpent" || type == "golem")
         {
             if(!heroes1.isEmpty())
             {
@@ -181,7 +224,7 @@ public class Soldier extends Actor
                 }
             }
         }
-        if(type == "mage")
+        if(type == "mage" || type == "phoenix")
         {
             if(!heroes2.isEmpty())
             {
@@ -437,6 +480,7 @@ public class Soldier extends Actor
     {
         if(health <= 0)
         {
+            getWorld().addObject(new DeathDisplay(),getX(),getY());
             getWorld().removeObject(this);
         }
     }
@@ -468,6 +512,7 @@ public class Soldier extends Actor
         {
             fireTurns--;
             health--;
+            getWorld().addObject(new EffectAnimation(),getX(),getY());
         }
     }
 
@@ -498,6 +543,10 @@ public class Soldier extends Actor
         {
             poisonTurns--;
             health-=2;
+            if(fireTurns <= 0)
+            {
+                getWorld().addObject(new EffectAnimation(),getX(),getY());
+            }
         }
     }
 
@@ -599,7 +648,10 @@ public class Soldier extends Actor
         health+=amount;
         if(!attack.isEmpty())
         {
-            getWorld().addObject(new AttackAnimation(),getX(),getY());
+            if(amount < 0)
+            {
+                getWorld().addObject(new AttackAnimation(),getX(),getY());
+            }
             if(attack.get(0).getAttacker() != null)
             {
                 if(attack.get(0).getAttacker().getAbility2() == "Vampiric Fang" && attack.get(0).getAbility() != "drain")
@@ -615,6 +667,10 @@ public class Soldier extends Actor
         else
         {
             getWorld().addObject(new DamageDisplay(amount),getX(),getY()-30);
+            if(amount > 0)
+            {
+                getWorld().addObject(new HealAnimation(),getX(),getY());
+            }
         }
     }
 
@@ -631,6 +687,32 @@ public class Soldier extends Actor
         return player;
     }
 
+    /**
+     * GetHealth
+     * 
+     * Gets the current health of the hero
+     * 
+     * @Param None There are no parameters
+     * @return Returns an int
+     */
+    public int getHealth()
+    {
+        return health;
+    }
+    
+    /**
+     * GetHealth
+     * 
+     * Gets the max health of the hero
+     * 
+     * @Param None There are no parameters
+     * @return Returns an int
+     */
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+    
     /**
      * MindControl
      * 
@@ -709,6 +791,7 @@ public class Soldier extends Actor
     {
         boolean heal = false;
         List<Buildings> nearbyBuildings = nearbyBuildings();
+        List<Hero> nearbyHeroes = getObjectsInRange(75,Hero.class);
         if(!nearbyBuildings.isEmpty())
         {
             for(int i = 0;i < nearbyBuildings.size();i++)
@@ -718,10 +801,20 @@ public class Soldier extends Actor
                     heal = true;
                 }
             }
-            if(heal == true)
+        }
+        if(!nearbyHeroes.isEmpty())
+        {
+            for(int i = 0;i < nearbyHeroes.size();i++)
             {
-                changeHP(1);
+                if(nearbyHeroes.get(i).getPlayer() == player && nearbyHeroes.get(i).getAbility2() == "Inspire")
+                {
+                    heal = true;
+                }
             }
+        }
+        if(heal == true)
+        {
+            changeHP(1);
         }
     }
 
@@ -773,7 +866,7 @@ public class Soldier extends Actor
         {
             for(int i = 0;i < nearbyHeroes.size();i++)
             {
-                if(nearbyHeroes.get(i).getAbility2() == "War Banner")
+                if(nearbyHeroes.get(i).getAbility2() == "War Banner" || nearbyHeroes.get(i).getAbility2() == "Inspire")
                 {
                     strong = true;
                 }

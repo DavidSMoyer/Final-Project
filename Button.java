@@ -555,6 +555,42 @@ public class Button extends Actor
                 {
                     img2 = new GreenfootImage("cursedgaze.png");
                 }
+                if(hero.getAbility1() == "Summon Golem")
+                {
+                    img2 = new GreenfootImage("golem.png");
+                }
+                if(hero.getAbility1() == "Summon Phoenix")
+                {
+                    img2 = new GreenfootImage("phoenix.png");
+                }
+                if(hero.getAbility1() == "Summon Serpent")
+                {
+                    img2 = new GreenfootImage("serpent.png");
+                }
+                if(hero.getAbility1() == "Dice Roll")
+                {
+                    img2 = new GreenfootImage("dice.png");
+                }
+                if(hero.getAbility1() == "Blackjack")
+                {
+                    img2 = new GreenfootImage("blackjack.png");
+                }
+                if(hero.getAbility1() == "Russian Roulette")
+                {
+                    img2 = new GreenfootImage("roulette.png");
+                }
+                if(hero.getAbility1() == "Leap")
+                {
+                    img2 = new GreenfootImage("leap.png");
+                }
+                if(hero.getAbility1() == "Shattering Blow")
+                {
+                    img2 = new GreenfootImage("shatter.png");
+                }
+                if(hero.getAbility1() == "Pinning Strike")
+                {
+                    img2 = new GreenfootImage("pin.png");
+                }
                 img2.scale(120,120);
                 img.drawImage(img2,0,0);
                 img.setColor(Color.WHITE);
