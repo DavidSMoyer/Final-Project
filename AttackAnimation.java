@@ -29,6 +29,9 @@ public class AttackAnimation extends Actor
     /**
      * Act - do whatever the AttackAnimation wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {

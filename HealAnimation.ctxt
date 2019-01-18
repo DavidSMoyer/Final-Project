@@ -6,5 +6,5 @@ comment1.target=HealAnimation()
 comment1.text=\r\n\ The\ constructor\ for\ the\ HealAnimation\ object\r\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ HealAnimation\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ HealAnimation\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @\r\n
 numComments=3

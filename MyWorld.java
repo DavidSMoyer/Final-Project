@@ -78,7 +78,7 @@ public class MyWorld extends World
      * Checks to see if no soldiers or heroes are selected.
      * 
      * @param None There are no parameters
-     * @return Returns a boolean
+     * @return Returns the value of the "selected" variable
      */
     public boolean noneSelected()
     {
@@ -109,7 +109,7 @@ public class MyWorld extends World
      * 
      * @param t The resource type
      * @param p The player
-     * @return Returns nothing
+     * @return Returns the value of the index of the selected array
      */
     public int get(String t, int p)
     {
@@ -140,6 +140,7 @@ public class MyWorld extends World
      * @param t The resource type
      * @param p The player
      * @param amount The amount
+     * @return Returns nothing
      */
     public void change(String t, int p, int amount)
     {
@@ -167,7 +168,7 @@ public class MyWorld extends World
      * Gets the current player's turn
      * 
      * @param None There are no parameters
-     * @return Returns an int
+     * @return Returns the current player's turn in the "turn" variable
      */
     public int getTurn()
     {
@@ -720,7 +721,7 @@ public class MyWorld extends World
      * Gets the player's name at the current index of the playerNames array
      * 
      * @param num The index
-     * @return Returns a string
+     * @return Returns the name at the set index of the "playerNames" array
      */
     public String getPlayerName(int num)
     {

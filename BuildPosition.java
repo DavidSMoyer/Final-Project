@@ -28,6 +28,9 @@ public class BuildPosition extends Actor
     /**
      * Act - do whatever the BuildPosition wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {
@@ -40,7 +43,7 @@ public class BuildPosition extends Actor
      * Returns the type the object is
      * 
      * @param None There are no parameters
-     * @return Returns string
+     * @return Returns the value of the "type" variable
      */
     public String getType()
     {
@@ -80,8 +83,8 @@ public class BuildPosition extends Actor
                 {
                     world.change("stone",player,-5);
                     world.addObject(new Buildings("lumberMill",player),getX(),getY());
+                    getWorld().addObject(new HealAnimation(),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
-                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "M")
@@ -90,8 +93,8 @@ public class BuildPosition extends Actor
                 {
                     world.change("wood",player,-5);
                     world.addObject(new Buildings("rockMine",player),getX(),getY());
+                    getWorld().addObject(new HealAnimation(),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
-                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "GM")
@@ -102,8 +105,8 @@ public class BuildPosition extends Actor
                     world.change("wood",player,-5);
                     world.change("stone",player,-5);
                     world.addObject(new Buildings("goldMine",player),getX(),getY());
+                    getWorld().addObject(new HealAnimation(),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
-                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "A")
@@ -113,8 +116,8 @@ public class BuildPosition extends Actor
                     world.change("iron",player,-3);
                     world.change("stone",player,-8);
                     world.addObject(new Buildings("armoury",player),getX(),getY());
+                    getWorld().addObject(new HealAnimation(),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
-                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "B")
@@ -124,8 +127,8 @@ public class BuildPosition extends Actor
                     world.change("iron",player,-3);
                     world.change("wood",player,-8);
                     world.addObject(new Buildings("barracks",player),getX(),getY());
+                    getWorld().addObject(new HealAnimation(),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
-                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "T")
@@ -135,8 +138,8 @@ public class BuildPosition extends Actor
                     world.change("gold",player,-8);
                     world.change("iron",player,-3);
                     world.addObject(new Buildings("tower",player),getX(),getY());
+                    getWorld().addObject(new HealAnimation(),getX(),getY());
                     getWorld().getObjects(UI.class).get(0).closeBuildMenu();
-                    Greenfoot.playSound("build.mp3");
                 }
             }
             if(type == "archer")

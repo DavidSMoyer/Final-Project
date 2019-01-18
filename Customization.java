@@ -199,7 +199,7 @@ public class Customization extends Actor
      * Gets the owner of the menu
      * 
      * @param None There are no parameters
-     * @return Returns an int
+     * @return Returns the value of the "player" variable
      */
     public int getPlayer()
     {
@@ -322,7 +322,7 @@ public class Customization extends Actor
      * Gets the current class type
      * 
      * @param None There are no parameters
-     * @return Returns the seleted class type
+     * @return Returns the seleted index of the "classType" array
      */
     public String getClassType()
     {
@@ -334,7 +334,7 @@ public class Customization extends Actor
      * Gets the set ability
      * 
      * @param id The ability to get
-     * @return Returns the ability selected by the player and the get parameter
+     * @return Returns the ability selected by the player from the designated array
      */
     public String getAbility(int id)
     {

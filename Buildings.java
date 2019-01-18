@@ -72,6 +72,9 @@ public class Buildings extends Actor
     /**
      * Act - do whatever the Buildings wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {
@@ -160,7 +163,7 @@ public class Buildings extends Actor
      * Gets the player that owns the building
      * 
      * @param None There are no parameters
-     * @return Returns an integar
+     * @return Returns the value of the "player" variable
      */
     public int getPlayer()
     {
@@ -172,7 +175,7 @@ public class Buildings extends Actor
      * Gets the type of building
      * 
      * @param None There are no parameters
-     * @return Returns nothing
+     * @return Returns the value of the "type" variable
      */
     public String getType()
     {
@@ -307,7 +310,7 @@ public class Buildings extends Actor
      * Gets the hexagons next to the building
      * 
      * @param None There are no parameters
-     * @return Returns a list of nearby hexagons
+     * @return Returns a list of nearby hexagon objects
      */
     public List nearbyHex()
     {
@@ -319,7 +322,7 @@ public class Buildings extends Actor
      * Gets the heroes next to the building
      * 
      * @param None There are no parameters
-     * @return Returns a List of nearby heroes
+     * @return Returns a List of nearby hero objects
      */
     public List nearbyHeroes()
     {

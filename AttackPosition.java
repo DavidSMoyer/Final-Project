@@ -155,6 +155,9 @@ public class AttackPosition extends Actor
     /**
      * Act - do whatever the MovePosition wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {
@@ -1025,7 +1028,7 @@ public class AttackPosition extends Actor
      * Returns the attacking hero
      * 
      * @param None There are no parameters
-     * @return Returns a Hero object
+     * @return Returns the value of the "hero" variable
      */
     public Hero getAttacker()
     {
@@ -1037,7 +1040,7 @@ public class AttackPosition extends Actor
      * Returns the ability being used
      * 
      * @param None There are no parameters
-     * @return Returns string
+     * @return Returns the value of the "ability" variable
      */
     public String getAbility()
     {

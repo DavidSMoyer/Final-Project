@@ -102,6 +102,9 @@ public class Soldier extends Actor
     /**
      * Act - do whatever the Soldier wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {
@@ -399,7 +402,7 @@ public class Soldier extends Actor
      * Gets the type of soldier the object is
      * 
      * @param None There are no parameters
-     * @return Returns string
+     * @return Returns the value of the "type" variable
      */
     public String getType()
     {
@@ -680,7 +683,7 @@ public class Soldier extends Actor
      * Gets the player that owns the soldier
      * 
      * @param None There are no parameters
-     * @return Returns an int
+     * @return Returns the value of the "player" variable
      */
     public int getPlayer()
     {
@@ -693,7 +696,7 @@ public class Soldier extends Actor
      * Gets the current health of the hero
      * 
      * @Param None There are no parameters
-     * @return Returns an int
+     * @return Returns the value of the "health" variable
      */
     public int getHealth()
     {
@@ -706,7 +709,7 @@ public class Soldier extends Actor
      * Gets the max health of the hero
      * 
      * @Param None There are no parameters
-     * @return Returns an int
+     * @return Returns the value of the "maxHealth" variable
      */
     public int getMaxHealth()
     {
@@ -772,7 +775,7 @@ public class Soldier extends Actor
      * Gets all the buildings next to the soldier
      * 
      * @param None There are no parameters
-     * @return Returns nothing
+     * @return Returns a list of nearby Buildings objects
      */
     public List nearbyBuildings()
     {

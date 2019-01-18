@@ -2,7 +2,7 @@
 comment0.target=UI
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ UI\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ UI\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ \r\n
 comment2.params=
 comment2.target=void\ updateImage()
 comment2.text=\r\n\ UpdateImage\r\n\ \r\n\ Updates\ the\ image\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n

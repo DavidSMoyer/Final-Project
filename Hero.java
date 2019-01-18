@@ -99,6 +99,9 @@ public class Hero extends Actor
     /**
      * Act - do whatever the Hero wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {
@@ -498,7 +501,7 @@ public class Hero extends Actor
      * Gets the owner of the hero
      * 
      * @param None There are no parameters
-     * @return Returns an integer
+     * @return Returns the value of the "player" variable
      */
     public int getPlayer()
     {
@@ -511,7 +514,7 @@ public class Hero extends Actor
      * Gets the current health of the hero
      * 
      * @Param None There are no parameters
-     * @return Returns an int
+     * @return Returns the value of the "health" variable
      */
     public int getHealth()
     {
@@ -690,7 +693,7 @@ public class Hero extends Actor
      * Gets which class the hero is
      * 
      * @param None There are no parameters
-     * @return Returns a string
+     * @return Returns the value of the "classType" variable
      */
     public String getClassType()
     {
@@ -703,7 +706,7 @@ public class Hero extends Actor
      * Gets the active ability of the hero
      * 
      * @param None There are no parameters
-     * @return Returns a string
+     * @return Returns the value of the "ability1" variable
      */
     public String getAbility1()
     {
@@ -716,7 +719,7 @@ public class Hero extends Actor
      * Gets the passive ability of the hero
      * 
      * @param None There are no parameters
-     * @return Returns a string
+     * @return Returns the value of the "ability2" variable
      */
     public String getAbility2()
     {
@@ -742,7 +745,7 @@ public class Hero extends Actor
      * Gets the cooldown of the hero's active ability
      * 
      * @param None There are no parameters
-     * @return Returns an integer
+     * @return Returns the value of the "abilityCooldown" variable
      */
     public int getCooldown()
     {
@@ -1888,7 +1891,7 @@ public class Hero extends Actor
      * Gets terrain next to the hero
      * 
      * @param None There are no parameters
-     * @return Returns a list
+     * @return Returns a list of nearby Terrain objects
      */
     public List nearbyTerrain()
     {
@@ -1901,7 +1904,7 @@ public class Hero extends Actor
      * Gets buildings next to the hero
      * 
      * @param None There are no parameters
-     * @return Returns a list
+     * @return Returns a list of nearby Buildings objects
      */
     public List nearbyBuildings()
     {
@@ -1914,7 +1917,7 @@ public class Hero extends Actor
      * Gets hexagons next to the hero
      * 
      * @param None There are no parameters
-     * @return Returns a list
+     * @return Returns a list of nearby Hexagon objects
      */
     public List nearbyHex()
     {

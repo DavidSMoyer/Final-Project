@@ -618,7 +618,7 @@ public class Button extends Actor
      * Gets the current button type
      * 
      * @param None There are no parameters
-     * @return Returns string
+     * @return Returns the value of the "type" variable
      */
     public String getType()
     {
@@ -631,7 +631,7 @@ public class Button extends Actor
      * Gets the button's owner
      * 
      * @param None There are no parameters
-     * @return Returns an int
+     * @return Returns the value of the "player" variable
      */
     public int getPlayer()
     {
@@ -644,7 +644,7 @@ public class Button extends Actor
      * Checks if the done button was clicked
      * 
      * @param None There are no parameters
-     * @return Returns nothing
+     * @return Returns the value of the "done" variable
      */
     public boolean getDone()
     {
@@ -657,7 +657,7 @@ public class Button extends Actor
      * Gets a set aspect of the hero being currently saved
      * 
      * @param t The aspect to get
-     * @return Returns string
+     * @return Returns the value of the specified variable
      */
     public String getHero(String t)
     {

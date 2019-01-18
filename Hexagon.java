@@ -21,6 +21,9 @@ public class Hexagon extends Actor
     /**
      * Act - do whatever the Hexagon wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
+     * 
+     * @param None There are no parameters
+     * @return Returns nothing
      */
     public void act() 
     {
@@ -76,7 +79,7 @@ public class Hexagon extends Actor
      * Checks to see if there is any terrain in the current Hexagon
      * 
      * @param None There are no parameters
-     * @return Returns a boolean
+     * @return Returns a true value if not touching terrain, otherwise will give a false value
      */
     public boolean noTerrain()
     {

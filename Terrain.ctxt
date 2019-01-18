@@ -12,5 +12,5 @@ comment3.target=void\ hideDetection()
 comment3.text=\r\n\ HideDetection\r\n\ \r\n\ Detects\ if\ it\ should\ hide\ the\ image\ or\ not\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ nothing\r\n
 comment4.params=
 comment4.target=java.lang.String\ getType()
-comment4.text=\r\n\ GetType\r\n\ \r\n\ Gets\ the\ terrain\ type\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ string\r\n
+comment4.text=\r\n\ GetType\r\n\ \r\n\ Gets\ the\ terrain\ type\r\n\ \r\n\ @param\ None\ There\ are\ no\ parameters\r\n\ @return\ Returns\ the\ value\ of\ the\ "type"\ variable\r\n
 numComments=5

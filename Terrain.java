@@ -71,7 +71,7 @@ public class Terrain extends Actor
      * Gets the terrain type
      * 
      * @param None There are no parameters
-     * @return Returns string
+     * @return Returns the value of the "type" variable
      */
     public String getType()
     {
