@@ -810,6 +810,10 @@ public class Soldier extends Actor
                 {
                     heal = true;
                 }
+                if((type == "phoenix" || type == "golem" || type == "serpent") && nearbyHeroes.get(i).getClassType() == "Summoner")
+                {
+                    heal = true;
+                }
             }
         }
         if(heal == true)

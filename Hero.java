@@ -678,6 +678,7 @@ public class Hero extends Actor
                 health = 10;
                 Greenfoot.playSound("heal.wav");
                 ability2 = "";
+                cure();
                 getWorld().addObject(new ReviveDisplay(),getX(),getY());
             }
         }
@@ -809,7 +810,7 @@ public class Hero extends Actor
                         for(int i = 0;i < heroes.size();i++)
                         {
                             heroes.get(i).changeHP(-3);
-                            getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                            getWorld().addObject(new EffectAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                         }
                     }
                     if(!soldiers.isEmpty())
@@ -819,7 +820,7 @@ public class Hero extends Actor
                             if(soldiers.get(i).getPlayer() != player)
                             {
                                 soldiers.get(i).changeHP(-3);
-                                getWorld().addObject(new AttackAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
+                                getWorld().addObject(new EffectAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
                             }
                         }
                     }
@@ -870,7 +871,7 @@ public class Hero extends Actor
                         for(int i = 0;i < heroes.size();i++)
                         {
                             heroes.get(i).changeHP(-2);
-                            getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                            getWorld().addObject(new EffectAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                         }
                     }
                     if(!soldiers.isEmpty())
@@ -880,7 +881,7 @@ public class Hero extends Actor
                             if(soldiers.get(i).getPlayer() != player)
                             {
                                 soldiers.get(i).changeHP(-2);
-                                getWorld().addObject(new AttackAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
+                                getWorld().addObject(new EffectAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
                             }
                         }
                     }
@@ -1388,6 +1389,60 @@ public class Hero extends Actor
                         }
                     }
                     abilityCooldown = 3;
+                }
+            }
+            if(ability1 == "Shattering Blow")
+            {
+                List<Hero> heroes = getObjectsInRange(150,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(150,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"shatter"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"shatter"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
+                }
+            }
+            if(ability1 == "Pinning Strike")
+            {
+                List<Hero> heroes = getObjectsInRange(150,Hero.class);
+                List<Soldier> soldiers = getObjectsInRange(150,Soldier.class);
+                if(!heroes.isEmpty() || !soldiers.isEmpty())
+                {
+                    ((MyWorld)getWorld()).unselectAll();
+                    if(!heroes.isEmpty())
+                    {
+                        for(int i = 0;i < heroes.size();i++)
+                        {
+                            getWorld().addObject(new AttackPosition(heroes.get(i),this,"pin"),heroes.get(i).getX(),heroes.get(i).getY());
+                        }
+                    }
+                    if(!soldiers.isEmpty())
+                    {
+                        for(int i = 0;i < soldiers.size();i++)
+                        {
+                            if(soldiers.get(i).getPlayer() != player)
+                            {
+                                getWorld().addObject(new AttackPosition(soldiers.get(i),this,"pin"),soldiers.get(i).getX(),soldiers.get(i).getY());
+                            }
+                        }
+                    }
+                    selected = true;
                 }
             }
         }

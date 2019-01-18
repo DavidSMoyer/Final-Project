@@ -279,7 +279,7 @@ public class AttackPosition extends Actor
                         hero.breakInvis();
                         if(ability == "stun")
                         {
-                            enemyHero.changeHP(-1);
+                            enemyHero.changeHP(-3);
                             enemyHero.stunAttack();
                             hero.setCooldown(5);
                             hero.setAttacked(true);
@@ -335,7 +335,7 @@ public class AttackPosition extends Actor
                                     if(nearbyHeroes.get(i) != enemyHero)
                                     {
                                         nearbyHeroes.get(i).changeHP(-2);
-                                        getWorld().addObject(new AttackAnimation(),nearbyHeroes.get(i).getX(),nearbyHeroes.get(i).getY());
+                                        getWorld().addObject(new EffectAnimation(),nearbyHeroes.get(i).getX(),nearbyHeroes.get(i).getY());
                                     }
                                 }
                             }
@@ -345,7 +345,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < nearbySoldiers.size();i++)
                                 {
                                     nearbySoldiers.get(i).changeHP(-2);
-                                    getWorld().addObject(new AttackAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
+                                    getWorld().addObject(new EffectAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
                                 }
                             }
                             hero.setCooldown(5);
@@ -376,8 +376,11 @@ public class AttackPosition extends Actor
                             {
                                 for(int i = 0;i < heroes.size();i++)
                                 {
-                                    heroes.get(i).setFire();
-                                    getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                                    if(heroes.get(i) != enemyHero)
+                                    {
+                                        heroes.get(i).setFire();
+                                        getWorld().addObject(new EffectAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                                    }
                                 }
                             }
                             List<Soldier> nearbySoldiers = getObjectsInRange(75,Soldier.class);
@@ -386,7 +389,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < nearbySoldiers.size();i++)
                                 {
                                         nearbySoldiers.get(i).setFire();
-                                        getWorld().addObject(new AttackAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
+                                        getWorld().addObject(new EffectAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
                                 }
                             }
                             hero.setCooldown(5);
@@ -438,6 +441,43 @@ public class AttackPosition extends Actor
                                 hero.changeHP(heal);
                             }
                             hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "shatter")
+                        {
+                            enemyHero.changeHP(-2);
+                            enemyHero.stunAttack();
+                            List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                            if(!heroes.isEmpty())
+                            {
+                                for(int i = 0;i < heroes.size();i++)
+                                {
+                                    if(heroes.get(i) != enemyHero && heroes.get(i) != hero)
+                                    {
+                                        heroes.get(i).changeHP(-1);
+                                        getWorld().addObject(new EffectAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                                    }
+                                }
+                            }
+                            List<Soldier> nearbySoldiers = getObjectsInRange(75,Soldier.class);
+                            if(!nearbySoldiers.isEmpty())
+                            {
+                                for(int i = 0;i < nearbySoldiers.size();i++)
+                                {
+                                        nearbySoldiers.get(i).changeHP(-1);
+                                        getWorld().addObject(new EffectAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
+                                }
+                            }
+                            hero.setCooldown(5);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "pin")
+                        {
+                            enemyHero.changeHP(-3);
+                            enemyHero.slowAttack();
+                            hero.setCooldown(5);
                             hero.setAttacked(true);
                             hero.unselect();
                         }
@@ -719,7 +759,7 @@ public class AttackPosition extends Actor
                         hero.breakInvis();
                         if(ability == "stun")
                         {
-                            enemySoldier.changeHP(-1);
+                            enemySoldier.changeHP(-3);
                             enemySoldier.stunAttack();
                             hero.setCooldown(5);
                             hero.setAttacked(true);
@@ -780,7 +820,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < nearbyHeroes.size();i++)
                                 {
                                     nearbyHeroes.get(i).changeHP(-2);
-                                    getWorld().addObject(new AttackAnimation(),nearbyHeroes.get(i).getX(),nearbyHeroes.get(i).getY());
+                                    getWorld().addObject(new EffectAnimation(),nearbyHeroes.get(i).getX(),nearbyHeroes.get(i).getY());
                                 }
                             }
                             List<Soldier> nearbySoldiers = getObjectsInRange(75,Soldier.class);
@@ -791,7 +831,7 @@ public class AttackPosition extends Actor
                                     if(nearbySoldiers.get(i) != enemySoldier)
                                     {
                                         nearbySoldiers.get(i).changeHP(-2);
-                                        getWorld().addObject(new AttackAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
+                                        getWorld().addObject(new EffectAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
                                     }
                                 }
                             }
@@ -824,7 +864,7 @@ public class AttackPosition extends Actor
                                 for(int i = 0;i < heroes.size();i++)
                                 {
                                     heroes.get(i).setFire();
-                                    getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                                    getWorld().addObject(new EffectAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
                                 }
                             }
                             List<Soldier> soldiers = getObjectsInRange(75,Soldier.class);
@@ -832,8 +872,11 @@ public class AttackPosition extends Actor
                             {
                                 for(int i = 0;i < soldiers.size();i++)
                                 {
-                                    soldiers.get(i).setFire();
-                                    getWorld().addObject(new AttackAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                                    if(soldiers.get(i) != enemySoldier)
+                                    {
+                                        soldiers.get(i).changeHP(-1);
+                                        getWorld().addObject(new EffectAnimation(),soldiers.get(i).getX(),soldiers.get(i).getY());
+                                    }
                                 }
                             }
                             hero.setCooldown(5);
@@ -885,6 +928,46 @@ public class AttackPosition extends Actor
                                 hero.changeHP(heal);
                             }
                             hero.setCooldown(3);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "shatter")
+                        {
+                            enemySoldier.changeHP(-2);
+                            enemySoldier.stunAttack();
+                            List<Hero> heroes = getObjectsInRange(75,Hero.class);
+                            if(!heroes.isEmpty())
+                            {
+                                for(int i = 0;i < heroes.size();i++)
+                                {
+                                    if(heroes.get(i) != hero)
+                                    {
+                                        heroes.get(i).changeHP(-1);
+                                        getWorld().addObject(new EffectAnimation(),heroes.get(i).getX(),heroes.get(i).getY());
+                                    }
+                                }
+                            }
+                            List<Soldier> nearbySoldiers = getObjectsInRange(75,Soldier.class);
+                            if(!nearbySoldiers.isEmpty())
+                            {
+                                for(int i = 0;i < nearbySoldiers.size();i++)
+                                {
+                                    if(nearbySoldiers.get(i) != enemySoldier)
+                                    {
+                                        nearbySoldiers.get(i).changeHP(-1);
+                                        getWorld().addObject(new EffectAnimation(),nearbySoldiers.get(i).getX(),nearbySoldiers.get(i).getY());
+                                    }
+                                }
+                            }
+                            hero.setCooldown(5);
+                            hero.setAttacked(true);
+                            hero.unselect();
+                        }
+                        if(ability == "pin")
+                        {
+                            enemySoldier.changeHP(-3);
+                            enemySoldier.slowAttack();
+                            hero.setCooldown(5);
                             hero.setAttacked(true);
                             hero.unselect();
                         }
